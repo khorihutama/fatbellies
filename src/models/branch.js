@@ -17,7 +17,16 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     latitude: DataTypes.STRING,
     longitude: DataTypes.STRING,
-    openingHour: DataTypes.TIME
+    openingHour: DataTypes.STRING,
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('NOW()')
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('NOW()')
+    }
+
   }, {
     sequelize,
     modelName: 'Branch',
