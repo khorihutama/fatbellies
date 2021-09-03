@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "db": "npx sequelize-cli"
+    "db": "npx sequelize-cli",
+    "db-fresh": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate"
   },
   "keywords": [],
   "author": "",

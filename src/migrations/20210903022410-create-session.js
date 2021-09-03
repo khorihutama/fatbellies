@@ -8,12 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      mealId: {
-        type: Sequelize.INTEGER
-      },
-      branchId: {
-        type: Sequelize.INTEGER
-      },
       price: {
         type: Sequelize.INTEGER
       },
