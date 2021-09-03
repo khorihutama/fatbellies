@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      
+      const Session = sequelize.models.Session;
+      Session.belongsTo(Branch, { foreignKey: "branchId" });
     }
   };
   Branch.init({
