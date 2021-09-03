@@ -11,9 +11,9 @@ app.use("/", (req, res) => {
   res.json({ message: "hello world" });
 });
 
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-});
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop and re-sync db.");
+// });
 app.listen(port, () => {
   console.log(`App running at http://localhost:${port}`);
 });

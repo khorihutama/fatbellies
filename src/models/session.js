@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       price: DataTypes.INTEGER,
       maxCapacity: DataTypes.INTEGER,
-      day: DataTypes.STRING,
+      day: DataTypes.ENUM("sun", "mon", "tue", "wed", "thu", "fri", "sat"),
       startTime: DataTypes.TIME,
       endTime: DataTypes.TIME,
       isOndemand: DataTypes.BOOLEAN,

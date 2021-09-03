@@ -1,42 +1,43 @@
-'use strict';
+"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Sessions', {
+    await queryInterface.createTable("Sessions", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       price: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       maxCapacity: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       day: {
-        type: Sequelize.STRING
+        type: Sequelize.ENUM,
+        values: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"],
       },
       startTime: {
-        type: Sequelize.TIME
+        type: Sequelize.TIME,
       },
       endTime: {
-        type: Sequelize.TIME
+        type: Sequelize.TIME,
       },
       isOndemand: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: true,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: true,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Sessions');
-  }
+    await queryInterface.dropTable("Sessions");
+  },
 };
