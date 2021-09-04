@@ -9,8 +9,8 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 externalDocs:
-  description: Find out more about Swagger
-  url: http://swagger.io
+  description: GitHub Page
+  url: https://github.com/khorihutama/fatbellies
 servers:
 - url: https://fatbellies.herokuapp.com/api/v1
 tags:  
