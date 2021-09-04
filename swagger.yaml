@@ -349,7 +349,7 @@ paths:
                   example: '12:00:00'
                 price: 
                   type: integer
-                  example: 3
+                  example: 5
               required:
                 - name
         required: true
