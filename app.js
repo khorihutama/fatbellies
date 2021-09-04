@@ -29,11 +29,6 @@ var options = {
 
 app.use(
   "/api-docs",
-  function (req, res, next) {
-    swaggerDocument.host = req.get("host");
-    req.swaggerDoc = swaggerDocument;
-    next();
-  },
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, options)
 );
@@ -43,9 +38,9 @@ app.use(
 //   res.json({ error: err });
 // });
 
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
+db.sequelize.sync().then(() => {
+  console.log("sync db.");
+});
 app.listen(port, () => {
   console.log(`App running at http://localhost:${port}`);
 });
