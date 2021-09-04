@@ -352,6 +352,7 @@ paths:
                   example: 5
               required:
                 - name
+                - date
         required: true
       responses:
         200:
