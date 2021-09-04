@@ -124,8 +124,6 @@ class SessionControllers {
       return a.distance - b.distance;
     });
 
-    res.json({ sessionRes });
-
     let reservation = await Reservation.findAll({
       where: {
         date,
