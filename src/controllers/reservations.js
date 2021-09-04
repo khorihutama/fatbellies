@@ -1,4 +1,4 @@
-const { Session, Reservation } = require("../models");
+const { Session, Reservation, User } = require("../models");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const moment = require("moment");
@@ -6,7 +6,7 @@ const moment = require("moment");
 class ReservationControllers {
   static async save(req, res, next) {
     let { date, branch } = req.body;
-    //check
+
     let days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
     let session = await Session.findAll({
       where: {
@@ -25,16 +25,17 @@ class ReservationControllers {
       filtered = session.filter((el) => el.isOndemand == true);
     }
 
-    let { price, maxCapacity, sessionId } = filtered[0];
+    let { price, maxCapacity, id } = filtered[0];
 
     let reservation = await Reservation.findAll({
       where: {
         date,
       },
     });
+    let user = await User.findOne({ email: req.user})
 
     if (reservation.length < maxCapacity) {
-      await Reservation.create({ date, price, sessionId });
+      await Reservation.create({ date, price, sessionId: id, userId: user.id });
       res.status(201).json({
         message: `success creating reservation, the price is ${price}`,
       });

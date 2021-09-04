@@ -1,4 +1,4 @@
-const { Branch, Session, Reservation } = require("../models");
+const { User, Branch, Session, Reservation } = require("../models");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const moment = require("moment");
@@ -43,9 +43,10 @@ class SessionControllers {
   }
 
   static async filter(req, res, next) {
-    let { name, price, date, time, lat, long } = req.body;
+    let { name, price, date, time} = req.body;
     let days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
-
+    
+    let user = await User.findOne({ email: req.user})
     let whereCondition = {};
     if (time != undefined) {
       whereCondition = {
@@ -115,8 +116,8 @@ class SessionControllers {
         distance: getDistanceFromLatLonInKm(
           parseInt(Branch.latitude),
           parseInt(Branch.longitude),
-          lat,
-          long
+          user.latitude,
+          user.longitude
         ),
       };
     });
