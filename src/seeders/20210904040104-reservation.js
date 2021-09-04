@@ -12,7 +12,7 @@ module.exports = {
      * }], {});
      */
     await queryInterface.bulkInsert(
-      "Users",
+      "Reservations",
       [
         {
           date: "2021-09-05 12:00:00",

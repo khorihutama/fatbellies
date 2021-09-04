@@ -35,6 +35,12 @@ module.exports = {
         allowNull: true,
         type: Sequelize.DATE,
       },
+      branchId: {
+        type: Sequelize.INTEGER,
+      },
+      mealId: {
+        type: Sequelize.INTEGER,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

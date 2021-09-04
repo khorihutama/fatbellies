@@ -8,8 +8,8 @@
     "start:prod": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db": "node_modules/.bin/sequelize-cli",
-    "db:prod": "node_modules/.bin/sequelize-cli db:seed:all db:migrate && node_modules/.bin/sequelize-cli db:seed:all",
-    "db-fresh": "node_modules/.bin/sequelize-cli db:drop && node_modules/.bin/sequelize-cli db:create && node_modules/.bin/sequelize-cli db:migrate"
+    "db:prod": "npm run db db:migrate && npm run db db:seed:all",
+    "db:fresh": "npm run db db:drop && npm run db db:create && npm run db db:migrate && npm run db db:seed:all"
   },
   "keywords": [],
   "author": "",
