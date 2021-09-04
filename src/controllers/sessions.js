@@ -2,6 +2,7 @@ const { Branch, Session, Reservation } = require("../models");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const moment = require("moment");
+const e = require("express");
 
 class SessionControllers {
   static async save(req, res, next) {
@@ -42,8 +43,22 @@ class SessionControllers {
   }
 
   static async filter(req, res, next) {
-    let { name, price, date } = req.body;
+    let { name, price, date, time, lat, long } = req.body;
     let days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+
+    let whereCondition = {};
+    if (time != undefined) {
+      whereCondition = {
+        startTime: {
+          [Op.lte]: time,
+        },
+        endTime: {
+          [Op.gt]: time,
+        },
+      };
+    }
+    if (days != undefined) whereCondition.day = days[moment(date).day()];
+    if (price != undefined) whereCondition.price = price;
     let session = await Session.findAll({
       include: [
         {
@@ -53,22 +68,63 @@ class SessionControllers {
           },
         },
       ],
-      where: {
-        startTime: {
-          [Op.lte]: moment(date).format("HH:mm:ss"),
-        },
-        endTime: {
-          [Op.gt]: moment(date).format("HH:mm:ss"),
-        },
-        day: days[moment(date).day()],
-        price: price,
-      },
+      where: whereCondition,
     });
 
-    let filtered = session.filter((el) => el.isOndemand == false);
-    if (session.length > 1) {
-      filtered = session.filter((el) => el.isOndemand == true);
-    }
+    const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
+      var R = 6371; // Radius of the earth in km
+      var dLat = deg2rad(lat2 - lat1); // deg2rad below
+      var dLon = deg2rad(lon2 - lon1);
+      var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) *
+          Math.cos(deg2rad(lat2)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c; // Distance in km
+      return d; // distance returned
+    };
+
+    const deg2rad = (deg) => {
+      return deg * (Math.PI / 180);
+    };
+
+    let sessionRes = session.map((el) => {
+      const {
+        id,
+        price,
+        maxCapacity,
+        day,
+        startTime,
+        endTime,
+        branchId,
+        Branch,
+      } = el;
+      return {
+        id,
+        price,
+        maxCapacity,
+        day,
+        startTime,
+        endTime,
+        branchId,
+        branchName: Branch.name,
+        lat: Branch.latitude,
+        long: Branch.longitude,
+        distance: getDistanceFromLatLonInKm(
+          parseInt(Branch.latitude),
+          parseInt(Branch.longitude),
+          lat,
+          long
+        ),
+      };
+    });
+    sessionRes.sort(function (a, b) {
+      return a.distance - b.distance;
+    });
+
+    res.json({ sessionRes });
 
     let reservation = await Reservation.findAll({
       where: {
@@ -76,7 +132,7 @@ class SessionControllers {
       },
     });
 
-    let result = filtered.filter((el) => el.maxCapacity > reservation.length);
+    let result = sessionRes.filter((el) => el.maxCapacity > reservation.length);
 
     res.status(200).json({ result });
   }
