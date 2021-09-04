@@ -1,0 +1,566 @@
+openapi: 3.0.1
+info:
+  title: Fatbellies Restaurant
+  description: Fatbellies Restaurant
+  contact:
+    email: bukhori.hutama@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- url: https://localhost:3000/api/v1
+- url: http://localhost:3000/api/v1
+tags:  
+- name: user
+  description: Operations about user
+- name: branch
+  description: Access to Fatbellies Branch
+- name: reservation
+  description: Access to Fatbellies reservation
+- name: session
+  description: Access to Fatbellies List of session
+- name: meal
+  description: Access to Fatbellies List of meals
+
+paths:
+  /auth/signup:
+    servers:
+    - url: http://localhost:3000
+    - url: https://localhost:3000
+    post:
+      tags:
+      - user
+      summary: Register user
+      description: Register new user.
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        200:
+          description: success login
+        500:
+          description: internal server error
+        
+  /auth/login:
+    servers:
+    - url: http://localhost:3000
+    - url: https://localhost:3000
+    post:
+      tags:
+      - user
+      summary: Logs user into the system
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: example@mail.com
+                password:
+                  type: string
+                  example: password
+              required:
+                - email
+                - password
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: example@mail.com
+                password:
+                  type: string
+                  example: password
+              required:
+                - email
+                - password
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        500:
+          description: internal server error
+  
+  /meals:
+    get:
+      security: 
+      - bearerAuth: []
+      tags:
+      - meal
+      responses:
+        200:
+          description: return meal
+        403:
+          description: unauthorized
+        500:
+          description: server error
+    post:
+      security: 
+      - bearerAuth: []
+      tags: 
+      - meal
+      requestBody:
+        description: Creating meals
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Meal'
+        required: true
+      responses:
+        201:
+          description: created
+        403:
+          description: unauthorized
+        500:
+          description: server error
+  /meals/{id}:
+    put:
+      security: 
+      - bearerAuth: []
+      tags: 
+      - meal
+      parameters:
+      - name: id
+        in: path
+        description: meal id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        description: Updating meal
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Meal'
+        required: true
+      responses:
+        200:
+          description: updated
+        403:
+          description: unauthorized
+        500:
+          description: server error
+    delete:
+      security: 
+      - bearerAuth: []
+      tags: 
+      - meal
+      parameters:
+      - name: id
+        in: path
+        description: meal id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: deleted
+        403:
+          description: unauthorized
+        500:
+          description: server error
+          
+  /branches:
+    get:
+      security: 
+      - bearerAuth: []
+      tags:
+      - branch
+      responses:
+        200:
+          description: return branch
+        403:
+          description: unauthorized
+        500:
+          description: server error
+    post:
+      security: 
+      - bearerAuth: []
+      tags: 
+      - branch
+      requestBody:
+        description: Creating branch
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Branch'
+        required: true
+      responses:
+        201:
+          description: created
+        403:
+          description: unauthorized
+        500:
+          description: server error
+  /branches/{id}:
+    put:
+      security: 
+      - bearerAuth: []
+      tags: 
+      - branch
+      parameters:
+      - name: id
+        in: path
+        description: branch id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        description: Updating branch
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Branch'
+        required: true
+      responses:
+        200:
+          description: updated
+        403:
+          description: unauthorized
+        500:
+          description: server error
+    delete:
+      security: 
+      - bearerAuth: []
+      tags: 
+      - branch
+      parameters:
+      - name: id
+        in: path
+        description: branch id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: deleted
+        403:
+          description: unauthorized
+        500:
+          description: server error
+  /sessions:
+    get:
+      security: 
+      - bearerAuth: []
+      tags:
+      - session
+      responses:
+        200:
+          description: return session
+        403:
+          description: unauthorized
+        500:
+          description: server error
+    post:
+      security: 
+      - bearerAuth: []
+      tags: 
+      - session
+      requestBody:
+        description: Create sessions
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Session'
+        required: true
+      responses:
+        201:
+          description: created
+        403:
+          description: unauthorized
+        500:
+          description: server error
+  /sessions/filter:
+     post:
+      security: 
+      - bearerAuth: []
+      tags: 
+      - session
+      requestBody:
+        description: Filter session
+        content:
+          'application/json':
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: branch name
+                  example: Branch X
+                date:
+                  type: string
+                  example: "2021-05-09"
+                time:
+                  type: string
+                  example: '12:00:00'
+                price: 
+                  type: integer
+                  example: 3
+              required:
+                - name
+        required: true
+      responses:
+        200:
+          description: return filtered session
+        403:
+          description: unauthorized
+        500:
+          description: server error
+  /sessions/{id}:
+    get:
+      security: 
+      - bearerAuth: []
+      tags: 
+      - session
+      parameters:
+      - name: id
+        in: path
+        description: session id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: updated
+        403:
+          description: unauthorized
+        500:
+          description: server error
+    put:
+      security: 
+      - bearerAuth: []
+      tags: 
+      - session
+      parameters:
+      - name: id
+        in: path
+        description: session id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        description: Updating session
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Session'
+        required: true
+      responses:
+        200:
+          description: updated
+        403:
+          description: unauthorized
+        500:
+          description: server error
+    delete:
+      security: 
+      - bearerAuth: []
+      tags: 
+      - session
+      parameters:
+      - name: id
+        in: path
+        description: branch id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: deleted
+        403:
+          description: unauthorized
+        500:
+          description: server error
+  /reservations:
+    get:
+      security: 
+      - bearerAuth: []
+      tags:
+      - reservation
+      responses:
+        200:
+          description: return list of reservation
+        403:
+          description: unauthorized
+        500:
+          description: server error
+    post:
+      security: 
+      - bearerAuth: []
+      tags: 
+      - reservation
+      requestBody:
+        description: Create new reservation
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Reservation'
+        required: true
+      responses:
+        201:
+          description: created
+        403:
+          description: unauthorized
+        500:
+          description: server error
+  /reservations/{id}:
+    get:
+      security: 
+      - bearerAuth: []
+      tags: 
+      - reservation
+      parameters:
+      - name: id
+        in: path
+        description: reservation id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: return reservation by id
+        403:
+          description: unauthorized
+        500:
+          description: server error
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          example: Full name
+        email:
+          type: string
+          example: example@name.com
+        password:
+          type: string
+          example: password
+        phone:
+          type: string
+          example: "08313131313"
+        latitude:
+          type: string
+          example: -7.515498
+        longitude:
+          type: string
+          example: 110.775709
+      xml:
+        name: User
+    Meal:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          example: Buffet ABC
+      xml:
+        name: Meal
+    Branch:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          example: Branch ABC
+        latitude:
+          type: string
+          example: -7.515498
+        longitude:
+          type: string
+          example: 110.775709
+        openingHour:
+          type: string
+          example: "08.00 am - 10.00 pm"
+      xml:
+        name: Branch
+    Session:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        price:
+          type: integer
+          format: int32
+          example: 3
+        maxCapacity:
+          type: integer
+          format: int32
+          example: 10
+        day:
+          type: string
+          enum: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+          example: sun
+        startTime:
+          type: string
+          example: "12:00:00"
+        endTime:
+          type: string
+          example: "16:00:00"
+        isOndemand:
+          type: boolean
+          example: false
+        branchId:
+          type: integer
+          format: int32
+          example: 1
+        mealId:
+          type: integer
+          format: int32
+          example: 1
+      xml:
+        name: Branch
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        date:
+          type: string
+          format: date
+          example: "2021-09-05 12:00:00"
+        branch:
+          type: integer
+          format: int32
+          example: 1
+      xml:
+        name: Reservation
+    
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

@@ -6,7 +6,7 @@ const SessionControllers = require('../controllers/sessions')
 
 router.get('/', asyncMiddleware(SessionControllers.getAll));
 router.post('/', asyncMiddleware(SessionControllers.save));
-router.get('/filter', asyncMiddleware(SessionControllers.filter));
+router.post('/filter', asyncMiddleware(SessionControllers.filter));
 router.get('/:id', asyncMiddleware(SessionControllers.getById));
 router.put('/:id', asyncMiddleware(SessionControllers.update));
 router.delete('/:id', asyncMiddleware(SessionControllers.delete));
