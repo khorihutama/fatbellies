@@ -58,7 +58,7 @@ class SessionControllers {
         },
       };
     }
-    if (days != undefined) whereCondition.day = days[moment(date).day()];
+    if (date != undefined) whereCondition.day = days[moment(date).day()];
     if (price != undefined) whereCondition.price = price;
     let session = await Session.findAll({
       include: [

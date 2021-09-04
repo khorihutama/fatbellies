@@ -343,7 +343,7 @@ paths:
                   example: Branch X
                 date:
                   type: string
-                  example: "2021-05-09"
+                  example: "2021-09-05"
                 time:
                   type: string
                   example: '12:00:00'
