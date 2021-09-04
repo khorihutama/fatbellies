@@ -54,7 +54,8 @@ paths:
     post:
       tags:
       - user
-      summary: Logs user into the system
+      summary: Login to the system
+      description: Login using email & password.
       requestBody:
         required: true
         content:
@@ -96,6 +97,8 @@ paths:
   
   /meals:
     get:
+      summary: List all meals
+      description: List of all meals in the restaurants.
       security: 
       - bearerAuth: []
       tags:
@@ -108,6 +111,8 @@ paths:
         500:
           description: server error
     post:
+      summary: Create new meals menu
+      description: Add new meals menu
       security: 
       - bearerAuth: []
       tags: 
@@ -128,6 +133,8 @@ paths:
           description: server error
   /meals/{id}:
     put:
+      summary: Update meals
+      description: Update existing meal in the system
       security: 
       - bearerAuth: []
       tags: 
@@ -155,6 +162,8 @@ paths:
         500:
           description: server error
     delete:
+      summary: Delete meal
+      description: Delete meals in the system.
       security: 
       - bearerAuth: []
       tags: 
@@ -177,6 +186,8 @@ paths:
           
   /branches:
     get:
+      summary: List branch
+      description: List all the branch.
       security: 
       - bearerAuth: []
       tags:
@@ -189,6 +200,8 @@ paths:
         500:
           description: server error
     post:
+      summary: Create branch
+      description: Add new branch
       security: 
       - bearerAuth: []
       tags: 
@@ -209,6 +222,8 @@ paths:
           description: server error
   /branches/{id}:
     put:
+      summary: Update branch
+      description: Update existing branch.
       security: 
       - bearerAuth: []
       tags: 
@@ -236,6 +251,8 @@ paths:
         500:
           description: server error
     delete:
+      summary: Delete branch
+      description: Delete branch in the system.
       security: 
       - bearerAuth: []
       tags: 
@@ -257,6 +274,8 @@ paths:
           description: server error
   /sessions:
     get:
+      summary: List session
+      description: List of all available session.
       security: 
       - bearerAuth: []
       tags:
@@ -269,6 +288,8 @@ paths:
         500:
           description: server error
     post:
+      summary: Create session
+      description: Creating new session.
       security: 
       - bearerAuth: []
       tags: 
@@ -289,6 +310,8 @@ paths:
           description: server error
   /sessions/filter:
      post:
+      summary: Search session
+      description: Search session based on following criteria.
       security: 
       - bearerAuth: []
       tags: 
@@ -325,6 +348,8 @@ paths:
           description: server error
   /sessions/{id}:
     get:
+      summary: Get session detail
+      description: Show the detail of the session.
       security: 
       - bearerAuth: []
       tags: 
@@ -345,6 +370,8 @@ paths:
         500:
           description: server error
     put:
+      summary: Update session
+      description: Update existing session.
       security: 
       - bearerAuth: []
       tags: 
@@ -372,6 +399,8 @@ paths:
         500:
           description: server error
     delete:
+      summary: Delete session
+      description: Removing registered session.
       security: 
       - bearerAuth: []
       tags: 
@@ -393,6 +422,8 @@ paths:
           description: server error
   /reservations:
     get:
+      summary: List reservation 
+      description: List of the reservation by all user.
       security: 
       - bearerAuth: []
       tags:
@@ -405,6 +436,8 @@ paths:
         500:
           description: server error
     post:
+      summary: Create reservation
+      description: Booking a new reservation .
       security: 
       - bearerAuth: []
       tags: 
@@ -425,6 +458,8 @@ paths:
           description: server error
   /reservations/{id}:
     get:
+      summary: Get reservation detail
+      description: Get reservation detail by id
       security: 
       - bearerAuth: []
       tags: 
