@@ -30,6 +30,7 @@ class ReservationControllers {
     let reservation = await Reservation.findAll({
       where: {
         date,
+        sessionId: id
       },
     });
     let user = await User.findOne({ email: req.user})
