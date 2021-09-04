@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = process.env.APP_PORT || 3000;
+const PORT = process.env.PORT || 3000;
 const router = require("./src/routes/index");
 const authrouter = require("./src/routes/auth");
 const db = require("./src/models");
@@ -41,6 +41,7 @@ app.use(
 db.sequelize.sync().then(() => {
   console.log("sync db.");
 });
-app.listen(port, () => {
-  console.log(`App running at http://localhost:${port}`);
+app.listen(PORT, err => {
+  if(err) throw err;
+  console.log("%c Server running", "color: green");
 });
