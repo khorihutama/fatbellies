@@ -58,12 +58,12 @@ passport.use(
     },
     async (email, password, done) => {
       try {
-        const user = await User.findOne({ email }).then(async function (user) {
+        await User.findOne({ email }).then(function (user) {
           if (!user) {
             return done(null, false, { message: "User not found" });
           }
 
-          const validate = await user.validPassword(password);
+          const validate = user.validPassword(password);
 
           if (!validate) {
             return done(null, false, { message: "Wrong Password" });
