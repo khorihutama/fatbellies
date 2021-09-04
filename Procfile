@@ -1,2 +1,2 @@
-release: npm run db-seed
+release: npm run db:prod
 web: npm run start:prod
