@@ -106,8 +106,10 @@ paths:
       responses:
         200:
           description: return meal
-        403:
+        401:
           description: unauthorized
+        404:
+          description: not found
         500:
           description: server error
     post:
@@ -127,7 +129,7 @@ paths:
       responses:
         201:
           description: created
-        403:
+        401:
           description: unauthorized
         500:
           description: server error
@@ -157,8 +159,10 @@ paths:
       responses:
         200:
           description: updated
-        403:
+        401:
           description: unauthorized
+        404:
+          description: not found
         500:
           description: server error
     delete:
@@ -179,8 +183,10 @@ paths:
       responses:
         200:
           description: deleted
-        403:
+        401:
           description: unauthorized
+        404:
+          description: not found
         500:
           description: server error
           
@@ -195,8 +201,10 @@ paths:
       responses:
         200:
           description: return branch
-        403:
+        401:
           description: unauthorized
+        404:
+          description: not found
         500:
           description: server error
     post:
@@ -216,7 +224,7 @@ paths:
       responses:
         201:
           description: created
-        403:
+        401:
           description: unauthorized
         500:
           description: server error
@@ -246,8 +254,10 @@ paths:
       responses:
         200:
           description: updated
-        403:
+        401:
           description: unauthorized
+        404:
+          description: not found
         500:
           description: server error
     delete:
@@ -268,8 +278,10 @@ paths:
       responses:
         200:
           description: deleted
-        403:
+        401:
           description: unauthorized
+        404:
+          description: not found
         500:
           description: server error
   /sessions:
@@ -283,8 +295,10 @@ paths:
       responses:
         200:
           description: return session
-        403:
+        401:
           description: unauthorized
+        404:
+          description: not found
         500:
           description: server error
     post:
@@ -304,7 +318,7 @@ paths:
       responses:
         201:
           description: created
-        403:
+        401:
           description: unauthorized
         500:
           description: server error
@@ -342,7 +356,7 @@ paths:
       responses:
         200:
           description: return filtered session
-        403:
+        401:
           description: unauthorized
         500:
           description: server error
@@ -365,8 +379,10 @@ paths:
       responses:
         200:
           description: updated
-        403:
+        401:
           description: unauthorized
+        404:
+          description: not found
         500:
           description: server error
     put:
@@ -394,8 +410,10 @@ paths:
       responses:
         200:
           description: updated
-        403:
+        401:
           description: unauthorized
+        404:
+          description: not found
         500:
           description: server error
     delete:
@@ -416,8 +434,10 @@ paths:
       responses:
         200:
           description: deleted
-        403:
+        401:
           description: unauthorized
+        404:
+          description: not found
         500:
           description: server error
   /reservations:
@@ -431,8 +451,10 @@ paths:
       responses:
         200:
           description: return list of reservation
-        403:
+        401:
           description: unauthorized
+        404:
+          description: not found
         500:
           description: server error
     post:
@@ -452,7 +474,7 @@ paths:
       responses:
         201:
           description: created
-        403:
+        401:
           description: unauthorized
         500:
           description: server error
@@ -475,8 +497,10 @@ paths:
       responses:
         200:
           description: return reservation by id
-        403:
+        401:
           description: unauthorized
+        404:
+          description: not found
         500:
           description: server error
 components:
